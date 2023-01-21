@@ -5,11 +5,13 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "../utils/api";
 
+import Layout from "../components/layout";
+
 const Home: NextPage = () => {
     const hello = api.example.hello.useQuery({ text: "from tRPC" });
 
     return (
-        <>
+        <Layout>
             <Head>
                 <title>Social Platform</title>
                 <meta name="description" content="Created for nwHacks 2023" />
@@ -51,7 +53,7 @@ const Home: NextPage = () => {
                     </div>
                 </div>
             </main>
-        </>
+        </Layout>
     );
 };
 
