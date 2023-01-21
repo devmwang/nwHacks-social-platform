@@ -2,7 +2,7 @@
     "baseUrl": ".",
     "paths": {
         "@src/*": ["src/*"],
-        "@server/*": ["src/server/*"]
+        "@utils/*": ["src/utils/*"]
     },
     "compilerOptions": {
         "target": "es2017",
