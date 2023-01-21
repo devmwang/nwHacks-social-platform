@@ -3,7 +3,7 @@ import Navbaritem from "./navbaritem";
 export default function Layout() {
     return (
         <>
-            <div className="bg-slate-800 py-4 px-4 shadow-xl">
+            <div className="bg-slate-800 py-1 px-4 shadow-xl">
                 <div className="flex flex-row-reverse">
                     {/*reversed because i couldnt figure out how to align end hee hee xd*/}
                     <Navbaritem
