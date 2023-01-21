@@ -31,9 +31,9 @@ export default function Layout() {
                                 className="h-6 w-6"
                             >
                                 <path
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 />
                             </svg>
                         }
@@ -49,9 +49,9 @@ export default function Layout() {
                                 className="h-6 w-6"
                             >
                                 <path
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M6.912 3a3 3 0 00-2.868 2.118l-2.411 7.838a3 3 0 00-.133.882V18a3 3 0 003 3h15a3 3 0 003-3v-4.162c0-.299-.045-.596-.133-.882l-2.412-7.838A3 3 0 0017.088 3H6.912zm13.823 9.75l-2.213-7.191A1.5 1.5 0 0017.088 4.5H6.912a1.5 1.5 0 00-1.434 1.059L3.265 12.75H6.11a3 3 0 012.684 1.658l.256.513a1.5 1.5 0 001.342.829h3.218a1.5 1.5 0 001.342-.83l.256-.512a3 3 0 012.684-1.658h2.844z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 />
                             </svg>
                         }
