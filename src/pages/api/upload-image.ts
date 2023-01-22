@@ -1,36 +1,26 @@
 import { randomUUID } from "crypto";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const AWS = require("aws-sdk");
+const { Storage } = require("@google-cloud/storage");
 
 import { env } from "@env/server.mjs";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         const imageId = randomUUID();
 
-        AWS.config.update({
-            accessKeyId: env.BB_ID,
-            secretAccessKey: env.BB_KEY,
-            region: "us-west-004",
-            signatureVersion: "v4",
-        });
+        const storage = new Storage({ keyFilename: "google-credentials.json" });
+        const bucket = storage.bucket("nwhacks_social_platform");
 
-        const endpoint = new AWS.endpoint(env.BB_URL);
+        const options = {
+            version: "v4",
+            action: "write",
+            expires: Date.now() + 60 * 1000, // 1 minutes
+        };
 
-        const s3 = new AWS.S3({
-            endpoint: endpoint,
-        });
+        const signedURL = await bucket.file(imageId).getSignedUrl(options);
 
-        const bucketName = "nwHacksSocialPlatform";
-
-        const presignedURL = s3.getSignedUrl({
-            Bucket: "nwHacksSocialPlatform",
-            Key: imageId,
-            Expires: 60,
-        });
-
-        return res.status(200).json(presignedURL);
+        return res.status(200).json({ url: signedURL });
     } catch (e) {
         console.log(e);
     }

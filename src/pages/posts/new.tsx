@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useForm } from "react-hook-form";
 import { api } from "@utils/api";
-import { resolve } from "node:path/win32";
 import React from "react";
-import { File } from "aws-sdk/lib/dynamodb/document_client";
+import axios from "axios";
 
 interface FormValues {
     image: File;
@@ -22,22 +21,12 @@ const CreateNewPost = () => {
 
         const res = await fetch("/api/upload-image");
 
-        const data = await res.json();
-
-        console.log(data);
-
         const formData = new FormData();
+        formData.append("file", file as any);
 
-        Object.entries({ ...data.fields, file }).forEach(([key, value]) => {
-            formData.append(key, value as string);
-        });
+        const url = ((await res.json()) as any).url[0];
 
-        console.log(formData);
-
-        await fetch(data.url, {
-            method: "POST",
-            body: formData,
-        });
+        await axios.put(url, formData);
     };
 
     return (

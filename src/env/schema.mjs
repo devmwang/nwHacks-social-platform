@@ -7,9 +7,6 @@ import { z } from "zod";
 */
 export const serverSchema = z.object({
     DATABASE_URL: z.string().url(),
-    BB_URL: z.string(),
-    BB_ID: z.string(),
-    BB_KEY: z.string(),
     NODE_ENV: z.enum(["development", "test", "production"]),
     NEXTAUTH_SECRET:
     process.env.NODE_ENV === "production"
@@ -35,9 +32,6 @@ export const serverSchema = z.object({
     */
     export const serverEnv = {
         DATABASE_URL: process.env.DATABASE_URL,
-        BB_URL: process.env.BB_URL,
-        BB_ID: process.env.BB_ID,
-        BB_KEY: process.env.BB_KEY,
         NODE_ENV: process.env.NODE_ENV,
         NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
         NEXTAUTH_URL: process.env.NEXTAUTH_URL,
