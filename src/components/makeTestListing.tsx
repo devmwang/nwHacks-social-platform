@@ -22,8 +22,7 @@ export function MakeTestListing() {
         const location = "test location";
         const startTime = "01/21/2023";
         const endTime = "03/21/2023";
-        const userId = sessionData!.user!.id;
-        mutation.mutate({ title, description, location, startTime, endTime, userId });
+        mutation.mutate({ title, description, location, startTime, endTime });
         router.reload();
     };
 

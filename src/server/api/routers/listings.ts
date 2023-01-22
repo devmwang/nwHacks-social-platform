@@ -10,7 +10,6 @@ export const listingsRouter = createTRPCRouter({
                 location: z.string(),
                 startTime: z.string(),
                 endTime: z.string(),
-                userId: z.string(),
             })
         )
         .mutation(async ({ ctx, input }) => {
@@ -21,7 +20,8 @@ export const listingsRouter = createTRPCRouter({
                     location: input.location,
                     startTime: new Date(input.startTime),
                     endTime: new Date(input.endTime),
-                    authorId: input.userId,
+                    authorId: ctx.session.user.id,
+                    tsPosted: Date.now(),
                 },
             });
             return {
