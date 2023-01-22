@@ -21,6 +21,15 @@ import { type Session } from "next-auth";
 
 import { getServerAuthSession } from "../auth";
 import { prisma } from "../db";
+/**
+ * 2. INITIALIZATION
+ *
+ * This is where the trpc api is initialized, connecting the context and
+ * transformer
+ */
+import { initTRPC, TRPCError } from "@trpc/server";
+import superjson from "superjson";
+import { userRouter } from "@src/server/api/routers/user";
 
 type CreateContextOptions = {
     session: Session | null;
@@ -57,15 +66,6 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
         session,
     });
 };
-
-/**
- * 2. INITIALIZATION
- *
- * This is where the trpc api is initialized, connecting the context and
- * transformer
- */
-import { initTRPC, TRPCError } from "@trpc/server";
-import superjson from "superjson";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
     transformer: superjson,
@@ -121,15 +121,14 @@ const enforceUserIsOrganization = t.middleware(({ ctx, next }) => {
         throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
-    const user = ctx.prisma.user.findUnique({
-        where: {
-            id: ctx.session.user.id,
-        },
-    });
-
-    if (user.role !== "ORGANIZATION") {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const user = userRouter.getUser();
+    user.then((user) => {
+        if (user.role !== "ORGANIZATION") {
+            throw new TRPCError({ code: "UNAUTHORIZED" });
+        }
+    }).catch((err) => console.log(err));
 
     return next({
         ctx: {
