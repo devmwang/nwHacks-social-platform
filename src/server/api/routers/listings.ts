@@ -21,7 +21,7 @@ export const listingsRouter = createTRPCRouter({
                     startTime: new Date(input.startTime),
                     endTime: new Date(input.endTime),
                     authorId: ctx.session.user.id,
-                    tsPosted: Date.now(),
+                    dtPosted: new Date(),
                 },
             });
             return {

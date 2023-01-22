@@ -9,7 +9,7 @@ export function ShowListings() {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const listItems = listings.data.map((listing) => (
-        <li className="list-none py-1" key={listing.tsPosted}>
+        <li className="list-none py-1" key={listing.dtPosted.toString()}>
             <div className="rounded-xl bg-slate-900 px-12">
                 <p className="text-2xl">{listing.title}</p>
                 <p>{listing.id}</p>

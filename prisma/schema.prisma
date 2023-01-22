@@ -88,7 +88,7 @@ model PositionListing {
     id         String    @id @default(cuid())
     author     User?     @relation(fields: [authorId], references: [id])
     authorId   String?
-    tsPosted   Int?
+    dtPosted   DateTime?
 
     title       String?
     description String?
