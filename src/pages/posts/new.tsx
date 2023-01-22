@@ -39,7 +39,7 @@ const CreateNewPost = () => {
                             onSubmit={handleSubmit(async (data) => {
                                 await createPost.mutateAsync(data);
                             })}
-                            className="flex flex-col"
+                            className="flex flex-col items-center"
                         >
                             <div className="flex grow justify-center">
                                 <div className="relative inline-block h-48 w-48 cursor-pointer rounded-full border-4">
@@ -63,12 +63,22 @@ const CreateNewPost = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="pt-2 pb-4">Select file</div>
-                            <div>
-                                <input className="" placeholder="Caption" type="text" {...register("caption")} />
+                            <div className="pt-2 pb-6">Select file</div>
+                            <div className="w-full">
+                                <textarea
+                                    placeholder="Caption"
+                                    className="h-32 w-full rounded-2xl border-2 bg-transparent px-4 py-2 focus:outline-none"
+                                    {...register("caption")}
+                                />
                             </div>
-                            <button className="py-4" disabled={createPost.isLoading} type="submit">
-                                {createPost.isLoading ? <span>Posting...</span> : <span>Post</span>}
+                            <button
+                                className="my-8 w-fit rounded-full bg-white/10 no-underline transition hover:bg-white/20"
+                                disabled={createPost.isLoading}
+                                type="submit"
+                            >
+                                <div className="px-14 py-6 font-semibold">
+                                    {createPost.isLoading ? <span>Posting...</span> : <span>Post</span>}
+                                </div>
                             </button>
                         </form>
                     </div>
