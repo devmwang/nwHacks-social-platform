@@ -12,9 +12,9 @@ const CreateNewPost = () => {
     };
 
     return (
-        <>
-            <h1 className="bg-gradient-to-b from-[#2e026d] to-[#15162c] text-lg h-full">Create New Post</h1>
-        </>
+        <div className="grow bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+            <h1 className="text-xl text-white ">Create New Post</h1>
+        </div>
     );
 };
 

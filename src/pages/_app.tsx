@@ -10,8 +10,10 @@ import Navbar from "@components/navbar";
 const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
     return (
         <SessionProvider session={session}>
-            <Navbar />
-            <Component {...pageProps} />
+            <div className="h-screen flex flex-col grow">
+                <Navbar />
+                <Component {...pageProps} />
+            </div>
         </SessionProvider>
     );
 };
