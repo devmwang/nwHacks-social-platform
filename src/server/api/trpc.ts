@@ -113,32 +113,6 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
 });
 
 /**
- * Reusable middleware that enforces users are logged in, and have the
- * "ORGANIZATION" role before running the procedure
- */
-const enforceUserIsOrganization = t.middleware(({ ctx, next }) => {
-    if (!ctx.session || !ctx.session.user) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const user = userRouter.getUser();
-    user.then((user) => {
-        if (user.role !== "ORGANIZATION") {
-            throw new TRPCError({ code: "UNAUTHORIZED" });
-        }
-    }).catch((err) => console.log(err));
-
-    return next({
-        ctx: {
-            // infers the `session` as non-nullable
-            session: { ...ctx.session, user: ctx.session.user },
-        },
-    });
-});
-
-/**
  * Protected (authed) procedure
  *
  * If you want a query or mutation to ONLY be accessible to logged in users, use
@@ -148,14 +122,3 @@ const enforceUserIsOrganization = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
-
-/**
- * Protected, Organization-only procedure
- *
- * Use this procedure for queries and mutations that should only be accessible to
- * users that are logged in and have the "ORGANIZATION" role. It verifies that the
- * session is valid and guarantees ctx.session.user is not null.
- *
- */
-
-export const organizationProtectedProcedure = t.procedure.use(enforceUserIsOrganization);
