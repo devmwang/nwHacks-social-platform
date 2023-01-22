@@ -7,7 +7,7 @@ export default function VolunteerListingSwitch() {
 
     return (
         <>
-            {!!user.data && user.data.role !== "ORGANIZATION" ? (
+            {!!user.data && (user.data as any).role !== "ORGANIZATION" ? (
                 <Navbaritem
                     input={"Volunteer"}
                     url={"/volunteer/listings"}
