@@ -1,14 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
-import { api } from "../utils/api";
 
 export const Authbutton: React.FC = () => {
     const { data: sessionData } = useSession();
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    const { data: secretMessage } = api.posts.getSecretMessage.useQuery(
-        undefined, // no input
-        { enabled: sessionData?.user !== undefined }
-    );
 
     return (
         <div className="flex flex-col items-center justify-center">
