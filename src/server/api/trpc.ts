@@ -122,12 +122,26 @@ const enforceUserIsOrganization = t.middleware(({ ctx, next }) => {
         throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
-    const user = api.user.getUser.useQuery();
+    const userRole = ctx.prisma.user.findUnique({
+        where: {
+            id: ctx.session.user.id,
+        },
+        select: {
+            role: true,
+        },
+    });
 
-    if (!!user.data && user.data.role !== "ORGANIZATION") {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
-
+    userRole
+        .then((role) => {
+            if (role == null) {
+                console.log(role);
+                throw new TRPCError({ code: "UNAUTHORIZED" });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            throw new TRPCError({ code: "UNAUTHORIZED" });
+        });
     return next({
         ctx: {
             // infers the `session` as non-nullable
