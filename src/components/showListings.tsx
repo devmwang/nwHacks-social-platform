@@ -7,16 +7,15 @@ export function ShowListings() {
         return <div></div>;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const listItems = listings.data.map((listing) => (
-        <li className="list-none py-1" key={listing.dtPosted.toString()}>
+        <li className="list-none py-1" key={(listing.dtPosted as any).toString()}>
             <div className="rounded-xl bg-slate-900 px-12">
                 <p className="text-2xl">{listing.title}</p>
                 <p>{listing.id}</p>
                 <p>{listing.description}</p>
                 <p>{listing.location}</p>
-                <p>{listing.startTime.toString()}</p>
-                <p>{listing.endTime.toString()}</p>
+                <p>{(listing.startTime as any).toString()}</p>
+                <p>{(listing.endTime as any).toString()}</p>
             </div>
         </li>
     ));
