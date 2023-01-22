@@ -1,8 +1,8 @@
-import { createTRPCRouter, organizationProtectedProcedure, protectedProcedure } from "@src/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "@src/server/api/trpc";
 import { z } from "zod";
 
 export const positionsRouter = createTRPCRouter({
-    createListing: organizationProtectedProcedure
+    createListing: protectedProcedure
         .input(
             z.object({
                 title: z.string(),
@@ -12,9 +12,8 @@ export const positionsRouter = createTRPCRouter({
                 endTime: z.string(),
             })
         )
-        .mutation(({ ctx, input }) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-            ctx.prisma.positionListing.create({
+        .mutation(async ({ ctx, input }) => {
+            await ctx.prisma.positionListing.create({
                 data: {
                     title: input.title,
                     description: input.description,

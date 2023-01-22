@@ -29,7 +29,6 @@ import { prisma } from "../db";
  */
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
-import { userRouter } from "@src/server/api/routers/user";
 
 type CreateContextOptions = {
     session: Session | null;
