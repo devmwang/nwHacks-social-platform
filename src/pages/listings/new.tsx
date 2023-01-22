@@ -50,12 +50,14 @@ const CreateNewListing = () => {
                             <div>
                                 <DatePicker
                                     selected={startFirstDate}
+                                    // @ts-ignore
                                     onChange={(date: React.SetStateAction<Date>) => setStartFirstDate(date)}
                                 />
                             </div>
                             <div>
                                 <DatePicker
                                     selected={startSecondDate}
+                                    // @ts-ignore
                                     onChange={(date: React.SetStateAction<Date>) => setStartSecondDate(date)}
                                 />
                             </div>
