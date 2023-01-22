@@ -1,8 +1,8 @@
-import { createTRPCRouter, protectedProcedure } from "@src/server/api/trpc";
+import { createTRPCRouter, organizationProtectedProcedure, protectedProcedure } from "@src/server/api/trpc";
 import { z } from "zod";
 
 export const positionsRouter = createTRPCRouter({
-    createListing: protectedProcedure
+    createListing: organizationProtectedProcedure
         .input(
             z.object({
                 title: z.string(),
