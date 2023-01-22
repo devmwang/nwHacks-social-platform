@@ -15,12 +15,6 @@ datasource db {
 }
 
 // Necessary for Next auth
-enum Role {
-    USER
-    ORGANIZATION
-    ADMIN
-}
-
 model Account {
     id                String  @id @default(cuid())
     userId            String
@@ -48,16 +42,16 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    role          Role      @default(USER)
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
-    comments      Comment[]
+    id               String            @id @default(cuid())
+    name             String?
+    email            String?           @unique
+    emailVerified    DateTime?
+    image            String?
+    role             String            @default("USER")
+    accounts         Account[]
+    sessions         Session[]
+    posts            Post[]
+    comments         Comment[]
     positionListings PositionListing[]
 }
 
@@ -74,7 +68,7 @@ model Post {
     author     User?     @relation(fields: [authorId], references: [id])
     authorId   String?
     content    String?
-    image      String?
+    imageId    String?
     datePosted DateTime?
     likes      Int?
     comments   Comment[]
@@ -96,9 +90,9 @@ model PositionListing {
     authorId   String?
     datePosted DateTime?
 
-    title      String?
+    title       String?
     description String?
-    location   String?
-    startTime  DateTime?
-    endTime    DateTime?
+    location    String?
+    startTime   DateTime?
+    endTime     DateTime?
 }
