@@ -34,7 +34,7 @@ export const postsRouter = createTRPCRouter({
             const post = s3.createPresignedPost({
                 Bucket: "nwHacksSocialPlatform",
                 Fields: {
-                    key: (input.image as FileList),
+                    key: input.image as FileList,
                 },
                 Expires: 60,
             });

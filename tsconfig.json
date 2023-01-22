@@ -4,7 +4,9 @@
         "paths": {
             "@src/*": ["src/*"],
             "@env/*": ["src/env/*"],
-            "@utils/*": ["src/utils/*"]
+            "@utils/*": ["src/utils/*"],
+            "@pages/*": ["src/pages/*"],
+            "@components/*": ["src/components/*"]
         },
         "target": "es2017",
         "lib": ["dom", "dom.iterable", "esnext"],
