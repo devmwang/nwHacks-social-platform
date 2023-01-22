@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 
-export const Authmessage: React.FC = () => {
+export const AuthMessage: React.FC = () => {
     const { data: sessionData } = useSession();
 
     return (

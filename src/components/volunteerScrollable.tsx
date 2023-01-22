@@ -1,5 +1,5 @@
 import { api } from "@utils/api";
 
-export function Volunteerscrollable() {
+export function VolunteerScrollable() {
     const entryQuery = api.posts.
 }

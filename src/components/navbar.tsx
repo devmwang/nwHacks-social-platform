@@ -1,6 +1,6 @@
-import Navbaritem from "./navbaritem";
-import { Authbutton } from "./authbutton";
-import { Authmessage } from "./authmessage";
+import Navbaritem from "./navbarItem";
+import { AuthButton } from "./authButton";
+import { AuthMessage } from "./authMessage";
 
 export default function Layout() {
     return (
@@ -79,8 +79,8 @@ export default function Layout() {
                         />
                     </div>
                     <div className="flex flex-row gap-4">
-                        <Authmessage />
-                        <Authbutton />
+                        <AuthMessage />
+                        <AuthButton />
                     </div>
                 </div>
             </div>
