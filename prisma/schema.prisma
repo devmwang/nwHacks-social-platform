@@ -15,6 +15,12 @@ datasource db {
 }
 
 // Necessary for Next auth
+enum Role {
+    USER
+    ORGANIZATION
+    ADMIN
+}
+
 model Account {
     id                String  @id @default(cuid())
     userId            String
@@ -50,6 +56,8 @@ model User {
     role          Role      @default(USER)
     accounts      Account[]
     sessions      Session[]
+    posts         Post[]
+    comments      Comment[]
 }
 
 model VerificationToken {
@@ -60,8 +68,23 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-enum Role {
-    USER
-    ORGANIZATION
-    ADMIN
+model Post {
+    id         String    @id @default(cuid())
+    author     User?     @relation(fields: [authorId], references: [id])
+    authorId   String?
+    content    String?
+    image      String?
+    datePosted DateTime?
+    likes      Int?
+    comments   Comment[]
+}
+
+model Comment {
+    id         String    @id @default(cuid())
+    author     User?     @relation(fields: [authorId], references: [id])
+    authorId   String?
+    post       Post?     @relation(fields: [postId], references: [id])
+    postId     String?
+    content    String?
+    datePosted DateTime?
 }

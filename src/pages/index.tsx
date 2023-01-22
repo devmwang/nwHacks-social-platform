@@ -8,7 +8,7 @@ import { api } from "../utils/api";
 import Layout from "../components/layout";
 
 const Home: NextPage = () => {
-    const hello = api.auth.hello.useQuery({ text: "from tRPC" });
+    const hello = api.posts.hello.useQuery({ text: "from tRPC" });
 
     return (
         <Layout>
@@ -62,7 +62,7 @@ export default Home;
 const AuthShowcase: React.FC = () => {
     const { data: sessionData } = useSession();
 
-    const { data: secretMessage } = api.auth.getSecretMessage.useQuery(
+    const { data: secretMessage } = api.posts.getSecretMessage.useQuery(
         undefined, // no input
         { enabled: sessionData?.user !== undefined }
     );
