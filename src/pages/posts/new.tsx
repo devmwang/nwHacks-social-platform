@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { api } from "@utils/api";
 import axios from "axios";
@@ -15,6 +16,8 @@ interface SubmitValues {
 }
 
 const CreateNewPost = () => {
+    const router = useRouter();
+
     const [imageId, setImageId] = useState<string | null>(null);
 
     const { register, handleSubmit } = useForm<FormValues>();
@@ -50,6 +53,12 @@ const CreateNewPost = () => {
                                 const submitData: SubmitValues = { imageId: imageId as string, caption: data.caption };
 
                                 await createPost.mutateAsync(submitData);
+
+                                console.log(createPost);
+
+                                if (!createPost.isError) {
+                                    router.push("/");
+                                }
                             })}
                             className="flex flex-col items-center"
                         >
