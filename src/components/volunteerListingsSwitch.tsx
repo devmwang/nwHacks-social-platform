@@ -1,13 +1,9 @@
 import Navbaritem from "@components/navbarItem";
 
 import { api } from "@utils/api";
-import { Prisma } from ".prisma/client";
-import Prisma__UserClient = Prisma.Prisma__UserClient;
-import { User } from "@prisma/client";
 
 export default function VolunteerListingSwitch() {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    const user: User = api.user.getUser.useQuery();
+    const user = api.user.getUser.useQuery();
 
     return (
         <>

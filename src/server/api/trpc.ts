@@ -123,6 +123,7 @@ const enforceUserIsOrganization = t.middleware(({ ctx, next }) => {
     }
 
     const user = api.user.getUser.useQuery();
+
     if (!!user.data && user.data.role !== "ORGANIZATION") {
         throw new TRPCError({ code: "UNAUTHORIZED" });
     }
