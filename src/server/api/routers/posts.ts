@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
-import { env } from "@env/server.mjs";
+import { createTRPCRouter, publicProcedure, protectedProcedure, organizationProtectedProcedure } from "../trpc";
 
 export const postsRouter = createTRPCRouter({
     hello: publicProcedure.input(z.object({ text: z.any() })).query(({ input }) => {
@@ -14,11 +13,19 @@ export const postsRouter = createTRPCRouter({
         return "you can now see this secret message!";
     }),
 
-    createPost: protectedProcedure.input(z.object({ image: z.any(), caption: z.string() })).mutation(({ input }) => {
-        console.log("b");
+    createPost: organizationProtectedProcedure
+        .input(z.object({ imageId: z.string(), caption: z.string() }))
+        .mutation(async ({ ctx, input }) => {
+            await ctx.prisma.post.create({
+                data: {
+                    imageId: input.imageId,
+                    caption: input.caption,
+                    authorId: ctx.session.user.id,
+                },
+            });
 
-        return {
-            status: "success",
-        };
-    }),
+            return {
+                status: "success",
+            };
+        }),
 });

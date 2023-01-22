@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const signedURL = await bucket.file(imageId).getSignedUrl(options);
 
-        return res.status(200).json({ url: signedURL });
+        return res.status(200).json({ url: signedURL, imageId });
     } catch (e) {
         console.log(e);
     }

@@ -67,10 +67,10 @@ model Post {
     id         String    @id @default(cuid())
     author     User?     @relation(fields: [authorId], references: [id])
     authorId   String?
-    content    String?
+    caption    String?
     imageId    String?
-    datePosted DateTime?
-    likes      Int?
+    datePosted DateTime? @default(now())
+    likes      Int?      @default(0)
     comments   Comment[]
 }
 
@@ -85,10 +85,10 @@ model Comment {
 }
 
 model PositionListing {
-    id         String    @id @default(cuid())
-    author     User?     @relation(fields: [authorId], references: [id])
-    authorId   String?
-    dtPosted   DateTime?
+    id       String    @id @default(cuid())
+    author   User?     @relation(fields: [authorId], references: [id])
+    authorId String?
+    dtPosted DateTime?
 
     title       String?
     description String?

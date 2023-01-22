@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { api } from "@utils/api";
-import React from "react";
 import axios from "axios";
 
 interface FormValues {
@@ -9,7 +9,14 @@ interface FormValues {
     caption: string;
 }
 
+interface SubmitValues {
+    imageId: string;
+    caption: string;
+}
+
 const CreateNewPost = () => {
+    const [imageId, setImageId] = useState<string | null>(null);
+
     const { register, handleSubmit } = useForm<FormValues>();
 
     const createPost = api.posts.createPost.useMutation();
@@ -19,12 +26,15 @@ const CreateNewPost = () => {
 
         const file = e.target.files[0];
 
-        const res = await fetch("/api/upload-image");
+        const res = await ((await fetch("/api/upload-image")) as any).json();
 
         const formData = new FormData();
         formData.append("file", file as any);
 
-        const url = ((await res.json()) as any).url[0];
+        const url = res.url[0];
+        const imageId = res.imageId;
+
+        setImageId(imageId);
 
         await axios.put(url, formData);
     };
@@ -37,7 +47,9 @@ const CreateNewPost = () => {
                     <div className="mt-16">
                         <form
                             onSubmit={handleSubmit(async (data) => {
-                                await createPost.mutateAsync(data);
+                                const submitData: SubmitValues = { imageId: imageId as string, caption: data.caption };
+
+                                await createPost.mutateAsync(submitData);
                             })}
                             className="flex flex-col items-center"
                         >
@@ -56,9 +68,9 @@ const CreateNewPost = () => {
                                         className="h-46 w-46 mt-1"
                                     >
                                         <path
-                                            fill-rule="evenodd"
+                                            fillRule="evenodd"
                                             d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
-                                            clip-rule="evenodd"
+                                            clipRule="evenodd"
                                         />
                                     </svg>
                                 </div>
