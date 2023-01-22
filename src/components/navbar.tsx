@@ -7,7 +7,7 @@ export default function Layout() {
         <>
             <div className="bg-slate-800 py-1 px-4 shadow-xl">
                 <div className="flex flex-row justify-between">
-                    <div className="flex flex-row">
+                    <div className="flex flex-row gap-4">
                         <Navbaritem
                             input={"Home"}
                             url={"/"}
