@@ -29,6 +29,8 @@ import { prisma } from "../db";
  */
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
+import { userRouter } from "@src/server/api/routers/user";
+import { api } from "@utils/api";
 
 type CreateContextOptions = {
     session: Session | null;
@@ -112,6 +114,28 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
 });
 
 /**
+ * Reusable middleware that enforces users are logged in, and have the
+ * "ORGANIZATION" role before running the procedure
+ */
+const enforceUserIsOrganization = t.middleware(({ ctx, next }) => {
+    if (!ctx.session || !ctx.session.user) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    const user = api.user.getUser.useQuery();
+    if (!!user.data && user.data.role !== "ORGANIZATION") {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    return next({
+        ctx: {
+            // infers the `session` as non-nullable
+            session: { ...ctx.session, user: ctx.session.user },
+        },
+    });
+});
+
+/**
  * Protected (authed) procedure
  *
  * If you want a query or mutation to ONLY be accessible to logged in users, use
@@ -121,3 +145,14 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+
+/**
+ * Protected, Organization-only procedure
+ *
+ * Use this procedure for queries and mutations that should only be accessible to
+ * users that are logged in and have the "ORGANIZATION" role. It verifies that the
+ * session is valid and guarantees ctx.session.user is not null.
+ *
+ */
+
+export const organizationProtectedProcedure = t.procedure.use(enforceUserIsOrganization);
