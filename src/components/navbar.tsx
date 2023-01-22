@@ -10,7 +10,7 @@ export default function Layout() {
                     <div className="flex flex-row">
                         <Navbaritem
                             input={"Home"}
-                            url={"localhost:3000"}
+                            url={"/"}
                             svg={
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ export default function Layout() {
                         />
                         <Navbaritem
                             input={"Volunteer"}
-                            url={"localhost:3000"}
+                            url={"/volunteer"}
                             svg={
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,7 @@ export default function Layout() {
                         />
                         <Navbaritem
                             input={"Messages"}
-                            url={"localhost:3000"}
+                            url={"/messages"}
                             svg={
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
