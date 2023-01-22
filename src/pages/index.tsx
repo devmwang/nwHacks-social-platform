@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-import { api } from "../utils/api";
+import { api } from "@utils/api";
 
 import Layout from "../components/layout";
 
