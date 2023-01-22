@@ -17,7 +17,6 @@ const Listings: NextPage = () => {
                 <DeleteTestListing />
             </div>
             <main className="flex grow flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-                {/*container for a bunch of volunteer listings*/}
                 <div className="text-white">
                     <ShowListings />
                 </div>
