@@ -13,7 +13,6 @@ interface FormValues {
 const CreateNewPost = () => {
     const { register, handleSubmit } = useForm<FormValues>();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const createPost = api.posts.createPost.useMutation();
 
     const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,21 +22,18 @@ const CreateNewPost = () => {
 
         const res = await fetch("/api/upload-image");
 
-        // eslint-disable-next-line
         const data = await res.json();
 
         console.log(data);
 
         const formData = new FormData();
 
-        // eslint-disable-next-line
         Object.entries({ ...data.fields, file }).forEach(([key, value]) => {
             formData.append(key, value as string);
         });
 
         console.log(formData);
 
-        // eslint-disable-next-line
         await fetch(data.url, {
             method: "POST",
             body: formData,
