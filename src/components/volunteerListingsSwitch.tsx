@@ -1,14 +1,13 @@
-import { userRouter } from "@src/server/api/routers/user";
-import { TRPCError } from "@trpc/server";
 import Navbaritem from "@components/navbarItem";
 
+import { api } from "@utils/api";
+
 export default function VolunteerListingSwitch() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const user = userRouter.getUser();
-    user.then((user) => {
-        if (user.role !== "ORGANIZATION") {
-            return (
+    const user = api.user.getUser.useQuery();
+
+    return (
+        <>
+            {!!user.data && user.data.role !== "ORGANIZATION" ? (
                 <Navbaritem
                     input={"Volunteer"}
                     url={"/volunteer"}
@@ -22,9 +21,7 @@ export default function VolunteerListingSwitch() {
                         </svg>
                     }
                 />
-            );
-        } else {
-            return (
+            ) : (
                 <Navbaritem
                     input={"Listings"}
                     url={"/listings"}
@@ -38,10 +35,7 @@ export default function VolunteerListingSwitch() {
                         </svg>
                     }
                 />
-            );
-        }
-    }).catch((err: TRPCError) => {
-        console.error(err);
-    });
-    return <div></div>;
+            )}
+        </>
+    );
 }
