@@ -58,6 +58,7 @@ model User {
     sessions      Session[]
     posts         Post[]
     comments      Comment[]
+    positionListings PositionListing[]
 }
 
 model VerificationToken {
@@ -87,4 +88,17 @@ model Comment {
     postId     String?
     content    String?
     datePosted DateTime?
+}
+
+model PositionListing {
+    id         String    @id @default(cuid())
+    author     User?     @relation(fields: [authorId], references: [id])
+    authorId   String?
+    datePosted DateTime?
+
+    title      String?
+    description String?
+    location   String?
+    startTime  DateTime?
+    endTime    DateTime?
 }

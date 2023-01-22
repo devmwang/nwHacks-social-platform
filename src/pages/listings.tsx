@@ -1,9 +1,8 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import Datepicker from "@components/datepicker";
 
-const Volunteer: NextPage = () => {
+const Listings: NextPage = () => {
     return (
         <>
             <Head>
@@ -21,4 +20,4 @@ const Volunteer: NextPage = () => {
     );
 };
 
-export default Volunteer;
+export default Listings;
