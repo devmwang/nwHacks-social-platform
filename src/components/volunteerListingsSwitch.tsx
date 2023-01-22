@@ -3,14 +3,14 @@ import Navbaritem from "@components/navbarItem";
 import { api } from "@utils/api";
 
 export default function VolunteerListingSwitch() {
-    const user = api.user.getUser.useQuery();
+    const user = api.user.getCurrentUser.useQuery();
 
     return (
         <>
             {!!user.data && user.data.role !== "ORGANIZATION" ? (
                 <Navbaritem
                     input={"Volunteer"}
-                    url={"/volunteer"}
+                    url={"/volunteer/listings"}
                     svg={
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="h-6 w-6">
                             <path
@@ -24,7 +24,7 @@ export default function VolunteerListingSwitch() {
             ) : (
                 <Navbaritem
                     input={"Listings"}
-                    url={"/listings"}
+                    url={"/listings/my"}
                     svg={
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="h-6 w-6">
                             <path
