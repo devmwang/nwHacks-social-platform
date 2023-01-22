@@ -63,7 +63,7 @@ const CreateNewPost = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="pt-2 pb-6">Select file</div>
+                            <div className="pt-2 pb-6">Select image</div>
                             <div className="w-full">
                                 <textarea
                                     placeholder="Caption"
