@@ -1,7 +1,7 @@
 import { api } from "@utils/api";
 
-export function ShowListings() {
-    const listings = api.listings.getRecentListings.useQuery({ limit: 10 });
+export function ShowMyListings() {
+    const listings = api.listings.getMyListings.useQuery({ limit: 10 });
 
     if (listings.data == null) {
         return <div></div>;

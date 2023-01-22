@@ -42,6 +42,21 @@ export const listingsRouter = createTRPCRouter({
             });
         }),
 
+    getMyListings: organizationProtectedProcedure
+        .input(
+            z.object({
+                limit: z.number(),
+            })
+        )
+        .query(async ({ ctx, input }) => {
+            return ctx.prisma.positionListing.findMany({
+                take: input.limit,
+                where: {
+                    authorId: ctx.session.user.id,
+                },
+            });
+        }),
+
     getListing: protectedProcedure
         .input(
             z.object({
