@@ -32,23 +32,53 @@ const CreateNewPost = () => {
     return (
         <div className="grow bg-gradient-to-b from-[#2e026d] to-[#15162c]">
             <div className="flex h-full p-16">
-                <div className="grow rounded-lg bg-gray-700 p-8 text-center">
-                    <span className="py-4 text-4xl font-semibold text-white">Create New Post</span>
-                    <div>
+                <div className="grow rounded-lg bg-gray-700 p-8 text-center text-white">
+                    <span className="py-4 text-4xl font-semibold">Create New Post</span>
+                    <div className="mt-16">
                         <form
                             onSubmit={handleSubmit(async (data) => {
                                 await createPost.mutateAsync(data);
                             })}
-                            className="flex flex-col"
+                            className="flex flex-col items-center"
                         >
-                            <div>
-                                <input className="" type="file" accept="image/png, image/jpeg" onChange={uploadImage} />
+                            <div className="flex grow justify-center">
+                                <div className="relative inline-block h-48 w-48 cursor-pointer rounded-full border-4">
+                                    <input
+                                        className="absolute left-0 bottom-0 h-full w-full cursor-pointer opacity-0"
+                                        type="file"
+                                        accept="image/png, image/jpeg"
+                                        onChange={uploadImage}
+                                    />
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        className="h-46 w-46 mt-1"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                </div>
                             </div>
-                            <div>
-                                <input className="" placeholder="Caption" type="text" {...register("caption")} />
+                            <div className="pt-2 pb-6">Select image</div>
+                            <div className="w-full">
+                                <textarea
+                                    placeholder="Caption"
+                                    className="h-32 w-full rounded-2xl border-2 bg-transparent px-4 py-2 focus:outline-none"
+                                    {...register("caption")}
+                                />
                             </div>
-                            <button className="py-4" disabled={createPost.isLoading} type="submit">
-                                {createPost.isLoading ? <span>Posting...</span> : <span>Post</span>}
+                            <button
+                                className="my-8 w-fit rounded-full bg-white/10 no-underline transition hover:bg-white/20"
+                                disabled={createPost.isLoading}
+                                type="submit"
+                            >
+                                <div className="px-14 py-6 font-semibold">
+                                    {createPost.isLoading ? <span>Posting...</span> : <span>Post</span>}
+                                </div>
                             </button>
                         </form>
                     </div>
