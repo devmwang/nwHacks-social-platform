@@ -4,7 +4,8 @@ import { api } from "../utils/api";
 export const Authbutton: React.FC = () => {
     const { data: sessionData } = useSession();
 
-    const { data: secretMessage } = api.auth.getSecretMessage.useQuery(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+    const { data: secretMessage } = api.posts.getSecretMessage.useQuery(
         undefined, // no input
         { enabled: sessionData?.user !== undefined }
     );
